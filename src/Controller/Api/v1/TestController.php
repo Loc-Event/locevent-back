@@ -7,9 +7,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/api/v1', name: 'api_')]
 class TestController extends AbstractController
 {
-    #[Route('/api/v1/test', name: 'app_api_v1_test')]
+    #[Route('/test', name: 'test')]
     public function index(UserRepository $userRepository): JsonResponse
     {
         $listOfUsers = $userRepository->findAll();
