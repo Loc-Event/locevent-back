@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -16,12 +17,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['user_show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups(['user_show'])]
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Groups(['user_show'])]
     private array $roles = [];
 
     /**
@@ -31,18 +35,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
+    #[Groups(['user_show'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 75)]
+    #[Groups(['user_show'])]
     private ?string $lastname = null;
 
     #[ORM\Column]
+    #[Groups(['user_show'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['user_show'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['user_show'])]
     private $isVerified = false;
 
     public function getId(): ?int
