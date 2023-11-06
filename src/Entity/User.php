@@ -17,15 +17,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?string $email = null;
 
     #[ORM\Column]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private array $roles = [];
 
     /**
@@ -35,23 +35,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 75)]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?string $lastname = null;
 
     #[ORM\Column]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: 'boolean')]
-    #[Groups(['user_show'])]
+    #[Groups(['user_show', 'user_list', 'user_edit'])]
     private $isVerified = false;
 
     public function getId(): ?int
