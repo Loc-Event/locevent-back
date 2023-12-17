@@ -10,6 +10,7 @@ use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Address;
@@ -30,39 +31,73 @@ class RegistrationController extends AbstractController
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
+        // Crée un nouvel utilisateur
         $user = new User();
+
+        // Vérifie si la demande est une demande JSON
+        if ($request->getContentType() === 'json') {
+            $data = json_decode($request->getContent(), true);
+
+            if ($this->isValidJsonData($data)) {
+                $user->setFirstname($data['firstname']);
+                $user->setLastname($data['lastname']);
+                $user->setEmail($data['email']);
+
+                $this->processRegistration($user, $data['plainPassword'], $userPasswordHasher, $entityManager, $request);
+
+                // Retourne une réponse JSON pour indiquer le succès de l'inscription
+                return new JsonResponse(['message' => 'Inscription réussie'], Response::HTTP_CREATED);
+            }
+
+            // Retourne une réponse JSON pour indiquer une demande invalide
+            return new JsonResponse(['error' => 'Données manquantes ou invalides dans la demande JSON.'], Response::HTTP_BAD_REQUEST);
+        }
+
+        // Traitement pour les demandes non-JSON (HTML)
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-            $user->setCreatedAt(new DateTimeImmutable);
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $this->processRegistration($user, $form->get('plainPassword')->getData(), $userPasswordHasher, $entityManager, $request);
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address($request->server->get('EMAIL'), $request->server->get('NAME_EMAIL')))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-            // do anything else you need here, like send an email
-
+            // Retourne à l'index après l'inscription réussie
             return $this->redirectToRoute('app_index');
         }
 
+        // Retourne la vue HTML pour le formulaire d'inscription
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    private function isValidJsonData(array $data): bool
+    {
+        return isset($data['firstname'], $data['lastname'], $data['email'], $data['plainPassword']);
+    }
+
+    private function processRegistration(User $user, string $plainPassword, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager,Request $request): void
+    {
+        // Encodage du mot de passe et autres traitements
+        $user->setPassword(
+            $userPasswordHasher->hashPassword(
+                $user,
+                $plainPassword
+            )
+        );
+        $user->setCreatedAt(new DateTimeImmutable);
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        // Envoie de l'e-mail de confirmation
+        $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            (new TemplatedEmail())
+                ->from(new Address($request->server->get('EMAIL'), $request->server->get('NAME_EMAIL')))
+                ->to($user->getEmail())
+                ->subject('Please Confirm your Email')
+                ->htmlTemplate('registration/confirmation_email.html.twig')
+        );
+    }
+
 
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, TranslatorInterface $translator, UserRepository $userRepository): Response
