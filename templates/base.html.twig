@@ -3,27 +3,33 @@
 {% set currentRoute = app.request.get('_route') %}
 {% set route = currentRoute|split('_')%}
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>
-            {% block title %}
-               Loc'Event
-            {% endblock %}
-        </title>
-        {% block stylesheets %}
-            <link rel="icon" href="{{ asset('images/favicon.png') }}"/>
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>
+			{% block title %}
+				Loc'Event
+			{% endblock %}
+		</title>
 
-    </head>
-    <body>
-        <main>
-            {% block body %}{% endblock %}
-        </main>
-        
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
+		{% block stylesheets %}
+			<link rel="icon" href="{{ asset('images/favicon.png') }}"/>
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+
+	</head>
+	<body>
+		{% include "partials/_header.html.twig" %}
+		{% include "partials/_flash.html.twig" %}
+		<main>
+			{% block body %}{% endblock %}
+		</main>
+		{% include "partials/_footer.html.twig" %}
+
+	</body>
+
 </html>
