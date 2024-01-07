@@ -8,21 +8,52 @@ body {
 
 header {
     background-color: black;
+    color: white;
     height: 15%;
     min-height: 80px;
-    color: white;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar_nav {
+    background-color: grey;
+    color: black;
+    height: 100%;
+    width: 25%;
+}
+
+.logo_ctn {
+    width: 25%;
+    height: 100%;    
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+}
+
+.logo_ctn a {
+    height: 100%;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a .logo_img {
+    width: auto;
+    height: 50%;
 }
 
 main {
-    background-color: navajowhite;
+    background-color: lighten($color: black, $amount: 10%);
+    color: white;
     height: 70%;
     overflow: hidden;
 }
 
 footer {
-    background-color: gray;
+    background-color: black;
+    color: white;
     height: 15%;
     min-height: 80px;
-    color: white;
 }
 
