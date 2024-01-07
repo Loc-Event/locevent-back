@@ -27,10 +27,11 @@
 		{% include "partials/_flash.html.twig" %}
 		<main>
 		{% include "partials/_sidebar.html.twig" %}
+		<div class="admin_content">
 			{% block body %}{% endblock %}
+		</div>
 		</main>
-		{% include "partials/_footer.html.twig" %}
-
+		{# {% include "partials/_footer.html.twig" %} #}
 	</body>
 
 </html>

@@ -6,6 +6,9 @@ body {
     padding: 0;
 }
 
+li {
+    list-style-type: none;
+}
 header {
     background-color: black;
     color: white;
@@ -46,8 +49,18 @@ a .logo_img {
 main {
     background-color: lighten($color: black, $amount: 10%);
     color: white;
-    height: 70%;
+    height: 85%;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;    
+}
+
+.admin_content {
+    display: flex;
+    flex-direction: column;    
+    width: 75%;
+    overflow: auto;
+    align-items: center;
 }
 
 footer {
