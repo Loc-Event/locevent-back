@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/user')]
+#[Route('admin/user')]
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
@@ -56,6 +56,8 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('USER_VIEW', $user, "Vous ne pouvez pas voir le compte d'autres utilisateurs");
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
@@ -76,6 +78,8 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('USER_DELETE', $user, "Vous ne pouvez pas supprimer le compte d'autres admin");
+
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
