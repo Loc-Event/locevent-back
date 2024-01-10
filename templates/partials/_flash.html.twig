@@ -1,1 +1,10 @@
-{# TODO #}
+{% for label, messages in app.flashes %}
+	{% for message in messages %}
+		<div class="alert alert-{{ label }} px-2" role="alert">
+			<p>
+				{{ message }}
+			</p>
+			<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+		</div>
+	{% endfor %}
+{% endfor %}

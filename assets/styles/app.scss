@@ -1,3 +1,5 @@
+$margin_logo: 20px;
+
 body {
     background-color: lightgray;
     width: 100vw;
@@ -15,7 +17,7 @@ header {
     height: 15%;
     min-height: 80px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .sidebar_nav {
@@ -26,19 +28,30 @@ header {
 }
 
 .logo_ctn {
-    width: 25%;
+    width: calc(25% - $margin_logo);
     height: 100%;    
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
+    margin-left: $margin_logo;
+}
+
+.flash_ctn {
+    width: 50%;
+    height: 100%;    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .logo_ctn a {
     height: 100%;
     width: auto;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
+}
+
+.log_action_ctn {
+    width: 25%;
+    height: 100%;   
 }
 
 a .logo_img {
@@ -70,3 +83,17 @@ footer {
     min-height: 80px;
 }
 
+//Flash
+.alert {
+    --bs-alert-margin-bottom : 0;
+    --bs-alert-padding-y : 0;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;   
+    & p {
+        margin-bottom: 0;
+    }
+    & .closebtn {
+        cursor: pointer;
+    }
+}
