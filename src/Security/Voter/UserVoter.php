@@ -60,12 +60,14 @@ class UserVoter extends Voter
                 }
                 break;
             case 'USER_DELETE':
+                $roles = $subject->getRoles();
+                
                 if ($user == $subject) {
                     return true;
                 }
-                // if ($this->security->isGranted('ROLE_ADMIN')) {
-                //     return true;
-                // }
+                if (count($roles) == 1 && $roles[0] == 'ROLE_USER') {
+                    return true;
+                }
                 break;
         }
 
