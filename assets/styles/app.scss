@@ -60,6 +60,13 @@ header {
     & a {
         text-decoration: none;
         color: white;
+        & i.fa-user-times{
+            color: red;
+        }
+        & i.fa-user{
+            color: turquoise;
+        }
+        
     }
     & a:hover {
         color: #ffb703;

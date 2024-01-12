@@ -9,7 +9,14 @@
 	</div>
 
 	<div class="log_action_ctn">
-		<a href="{{path('app_login')}}">SE CONNECTER <i class="far fa-user"></i></a>
-		{# TODO logout et IF #}
+		{% if app.user %}
+			<a href="{{path('app_logout')}}">SE DECONNECTER
+				<i class="fas fa-user-times"></i>
+			</a>
+		{% else %}
+			<a href="{{path('app_login')}}">SE CONNECTER
+				<i class="fas fa-user"></i>
+			</a>
+		{% endif %}
 	</div>
 </header>
