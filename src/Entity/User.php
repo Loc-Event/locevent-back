@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cette adresse mail')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -23,8 +23,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Groups(['user_show', 'user_list', 'user_edit'])]
-    // #[Assert\NotBlank(message: "user.email.notblank")]
-    // #[Assert\Email(message: "user.email.notemail")]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide")]
+    #[Assert\Email(message: "Veuillez renseigner une adresse mail conforme")]
     // TODO régler les asserts sur toute entité
     private ?string $email = null;
 
@@ -40,10 +40,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 50)]
     #[Groups(['user_show', 'user_list', 'user_edit'])]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide")]
+    #[Assert\Regex('/^[aA-zZ\-]+$/', message: 'Merci de saisir un prénom conforme')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 75)]
     #[Groups(['user_show', 'user_list', 'user_edit'])]
+    #[Assert\NotBlank(message: "Le champ ne peut pas être vide")]
+    #[Assert\Regex('/^[aA-zZ\-]+$/', message: 'Merci de saisir un nom de famille conforme')]
     private ?string $lastname = null;
 
     #[ORM\Column]

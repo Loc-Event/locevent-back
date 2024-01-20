@@ -10,7 +10,7 @@
 	{% endfor %}
 {% endfor %}
 
-{% if error is defined %}
+{% if error is defined and error.messageKey is defined %}
 	<div class="alert alert-danger px-2" role="alert">
 		<p>
 			{{ error.messageKey|trans(error.messageData, 'security') }}

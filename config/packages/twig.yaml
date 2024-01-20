@@ -1,4 +1,5 @@
 twig:
+    form_themes: ['bootstrap_5_layout.html.twig']
     globals: 
         locales: '%app.locales%'
     default_path: '%kernel.project_dir%/templates'
