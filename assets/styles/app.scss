@@ -1,118 +1,139 @@
 $margin_logo: 20px;
 
 body {
-    background-color: lightgray;
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
+  background-color: lightgray;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
 }
 
 li {
-    list-style-type: none;
+  list-style-type: none;
 }
 header {
-    background-color: black;
-    color: white;
-    height: 15%;
-    min-height: 80px;
-    display: flex;
-    justify-content: space-between;
+  background-color: black;
+  color: white;
+  height: 15%;
+  min-height: 80px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .sidebar_nav {
-    background-color: grey;
-    color: black;
-    height: 100%;
-    width: 25%;
+  background-color: grey;
+  color: black;
+  height: 100%;
+  width: 25%;
 }
 
 .logo_ctn {
-    width: calc(25% - $margin_logo);
-    height: 100%;    
-    margin-left: $margin_logo;
+  width: calc(25% - $margin_logo);
+  height: 100%;
+  margin-left: $margin_logo;
 }
 
 .flash_ctn {
-    width: 50%;
-    height: 100%;    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .logo_ctn a {
-    height: 100%;
-    width: auto;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+  height: 100%;
+  width: auto;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
 .log_action_ctn {
-    width: calc(25% - $margin_logo);
-    margin-right: $margin_logo;
-    height: 100%;   
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+  width: calc(25% - $margin_logo);
+  margin-right: $margin_logo;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 
-    & a {
-        text-decoration: none;
-        color: white;
-        & i.fa-user-times{
-            color: red;
-        }
-        & i.fa-user{
-            color: turquoise;
-        }
-        
+  & a {
+    text-decoration: none;
+    color: white;
+    & i.fa-user-times {
+      color: red;
     }
-    & a:hover {
-        color: #ffb703;
+    & i.fa-user {
+      color: turquoise;
     }
+  }
+  & a:hover {
+    color: #ffb703;
+  }
 }
 
 a .logo_img {
-    width: auto;
-    height: 50%;
+  width: auto;
+  height: 50%;
 }
 
 main {
-    background-color: lighten($color: black, $amount: 10%);
-    color: white;
-    height: 85%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;    
+  background-color: lighten($color: black, $amount: 10%);
+  color: white;
+  height: 85%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
 }
 
 .admin_content {
-    display: flex;
-    flex-direction: column;    
-    width: 75%;
-    overflow: auto;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  overflow: auto;
+  align-items: center;
 }
 
 footer {
-    background-color: black;
-    color: white;
-    height: 15%;
-    min-height: 80px;
+  background-color: black;
+  color: white;
+  height: 15%;
+  min-height: 80px;
 }
 
 //Flash
 .alert {
-    --bs-alert-margin-bottom : 0;
-    --bs-alert-padding-y : 0;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;   
-    & p {
-        margin-bottom: 0;
+  --bs-alert-margin-bottom: 0;
+  --bs-alert-padding-y: 0;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  & p {
+    margin-bottom: 0;
+  }
+  & .closebtn {
+    cursor: pointer;
+  }
+}
+
+// Users
+.users_table {
+  width: 90%;
+  border: 1px solid gray;
+  border-radius: 10px;
+  & tr {
+    background-color: lighten($color: #000000, $amount: 15%);
+    color: white;
+    &:nth-child(even) {
+      background-color: lighten($color: #000000, $amount: 10%);
     }
-    & .closebtn {
-        cursor: pointer;
+    & th {
+      background-color: black;
+      color: white;
     }
+    & td {
+      background-color: transparent;
+      color: white;
+    }
+  }
 }
