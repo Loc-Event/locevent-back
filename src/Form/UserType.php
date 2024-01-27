@@ -12,12 +12,12 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', null , ['label' => 'Adresse mail'])
             // ->add('roles')
-            ->add('password')
-            ->add('firstname')
-            ->add('lastname')
-            ->add('isVerified')
+            ->add('password', null , ['label' => 'Mot de passe'])
+            ->add('firstname', null , ['label' => 'Prénom'])
+            ->add('lastname',  null , ['label' => 'Nom de famille'])
+            ->add('isVerified', null , ['label' => 'Valider l\'utilisateur'])
         ;
     }
 

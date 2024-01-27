@@ -6,7 +6,7 @@
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
 	<a href="{{ path('app_user_new') }}">
-		<button class="btn btn-md btn-primary my-3" title="Créer un utilisateur">
+		<button class="btn btn-sm btn-success mb-3" title="Créer un utilisateur">
 			<i class="fas fa-user-plus"></i>
 		</button>
 	</a>
@@ -34,7 +34,7 @@
 
 						<a class="text-decoration-none" href="{{ path('app_user_show', {'id': user.id}) }}">
 							<button class="btn btn-sm btn-info" title="Détails">
-								<i class="fas fa-info text-white"></i>
+								<i class="far fa-eye text-dark"></i>
 							</button>
 						</a>
 						<a class="text-decoration-none" href="{{ path('app_user_edit', {'id': user.id}) }}">

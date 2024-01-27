@@ -66,7 +66,7 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
-        $this->denyAccessUnlessGranted('USER_VIEW', $user, "Vous ne pouvez pas voir le compte d'autres utilisateurs");
+        $this->denyAccessUnlessGranted('USER_EDIT', $user, "Vous ne pouvez pas éditer le compte d'autres admins");
 
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);

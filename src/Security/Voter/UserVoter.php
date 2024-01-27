@@ -40,11 +40,11 @@ class UserVoter extends Voter
                 //     return true;
                 // }
 
+
                 // Si user est la cible alors on autorise l'accès à la page d'édition
                 if ($user == $subject) {
                     return true;
                 }
-
                 // Un administrateur peut éditer le compte d'un simple utilisateur
                 // On va vérifier que le compte à éditer à un role user
 
@@ -61,7 +61,7 @@ class UserVoter extends Voter
                 break;
             case 'USER_DELETE':
                 $roles = $subject->getRoles();
-                
+
                 if ($user == $subject) {
                     return true;
                 }

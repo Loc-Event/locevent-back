@@ -1,54 +1,122 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %}Détails de l'utilisateur
+{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+	<h1>Détails de l'utilisateur</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>IsVerified</th>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+	<div class="d-flex gap-1">
+		<a href="{{ path('app_user_index') }}">
+			<button class="btn btn-sm btn-light mb-3">
+				<i class="fas fa-arrow-left text-primary"></i>
+			</button>
+		</a>
+	</div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+	<div class="card p-3">
+		<div class="card-header">
+			<div class="d-flex">
+				<div class="card_header_left">
+					<img class="rounded-pill" width="110" height="110" src="{{ asset('images/user-default-avatar.png') }}" alt="">
+					{% if user.roles[0] == "ROLE_ADMIN" %}
+						<div class="role_label bg-warning text-white text-center">
+							ADMIN
+						</div>
+					{% elseif user.roles[0] == "ROLE_USER" %}
+						<div class="role_label bg-info text-white text-center">
+							MEMBRE
+						</div>
+					{% endif %}
+					{# <div>Créé le {{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</div> #}
+				</div>
+				<div class="card_header_right d-flex flex-column justify-content-center">
+					<div>{{ user.firstname }}</div>
+					<div>{{ user.lastname }}</div>
+					<div>ID N°{{ user.id }}</div>
+					<div>
+						<i class="fas fa-phone-square"></i>&nbsp;0708091011
+					</div>
+				</div>
+				{# <div class="card_user_verified">
+					{% if user.isVerified == 0 %}
+						<i class="fas fa-times text-danger"></i>
+					{% else %}
+						<i class="fas fa-user-check text-success"></i>
+					{% endif %}
+				</div> #}
+			</div>
+			<div class="d-flex">
+				<div class="card_header_left card_user_date">Créé le
+					{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</div>
+				<div class="card_header_right card_user_date">Modifié le
+					{{ user.updatedAt ? user.updatedAt|date('d/m/Y') : '' }}</div>
+			</div>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+		</div>
+		<div class="card-body">
+				{# <div class="card_user_edit">
+					<a class="text-decoration-none" href="{{ path('app_user_edit', {'id': user.id}) }}">
+						<button class="btn btn-sm btn-primary" title="Editer les détails">
+							<i class="fas fa-pencil-alt text-white"></i>
+						</button>
+					</a>
+				</div> #}
+			<div class="card_body_left">
+				<div class="mb-3">Adresse complète
+					<div>Numéro rue, nom rue complet</div>
+					<div>Code postal - Ville</div>
+				</div>
+				<div class="d-flex align-items-baseline">
+					<i class="far fa-envelope"></i>&nbsp;{{ user.email }}
+				</div>
+			</div>
+		</div>
+		<div class="d-flex card-footer">
+			<a href="#">Historique des commandes</a>
+		</div>
+	</div>
 
-    {{ include('user/_delete_form.html.twig') }}
+	{# <table class="table">
+								<tbody>
+									<tr>
+										<th>Id</th>
+										<td>{{ user.id }}</td>
+									</tr>
+									<tr>
+										<th>Email</th>
+										<td>{{ user.email }}</td>
+									</tr>
+									<tr>
+										<th>Roles</th>
+										<td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+									</tr>
+									<tr>
+										<th>Password</th>
+										<td>{{ user.password }}</td>
+									</tr>
+									<tr>
+										<th>Firstname</th>
+										<td>{{ user.firstname }}</td>
+									</tr>
+									<tr>
+										<th>Lastname</th>
+										<td>{{ user.lastname }}</td>
+									</tr>
+									<tr>
+										<th>CreatedAt</th>
+										<td>{{ user.createdAt ? user.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+									</tr>
+									<tr>
+										<th>UpdatedAt</th>
+										<td>{{ user.updatedAt ? user.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+									</tr>
+									<tr>
+										<th>IsVerified</th>
+										<td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+									</tr>
+								</tbody>
+							</table> #}
+
+	{# {{ include('user/_delete_form.html.twig') }} #}
 {% endblock %}
